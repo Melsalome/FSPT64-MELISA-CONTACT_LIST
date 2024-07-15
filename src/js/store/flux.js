@@ -25,12 +25,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const newContact = await contactDispatcher.post(contact)
 				setStore({...store, contactList: [...store.contactList,newContact]})
 				console.log(store.contactList)
+				getActions().getContacts(); 
 			},
 			deleteContacts: async(id) => {
 				await contactDispatcher.delete(id)
+				getActions().getContacts(); 
 			},
-			updateContacts: async(id,updatedContacts) => {
-				await contactDispatcher.put(id,updatedContacts)
+			updateContacts: async(id,name, address, phone, email) => {
+				await contactDispatcher.put(id,name, address, phone, email)
+				getActions().getContacts(); 
 			}
 
 			

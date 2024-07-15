@@ -18,13 +18,13 @@ export const contactDispatcher = {
         })
         return await response.json()
     },
-    put: async(id,updatedContacts) => {
+    put: async(id,name, address, phone, email) => {
         const response = await fetch (`https://playground.4geeks.com/contact/agendas/melisa/contacts/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type':'application/json'
             },
-            body: JSON.stringify (updatedContacts)
+            body: JSON.stringify ({"name": name, "address":address, "phone": phone, "email": email})
         })
         return await response.json()
     },
