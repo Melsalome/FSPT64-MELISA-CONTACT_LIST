@@ -1,0 +1,17 @@
+.card-body{
+    display: flex;
+    flex-direction: column;
+    width: 225px;
+    flex: 0 1 auto;
+}
+
+
+.container-contact{
+    display: flex;
+    flex-direction: row;
+}
+
+.container-contact-icons{
+    padding-top: 15px;
+    padding-right: 20px;
+}

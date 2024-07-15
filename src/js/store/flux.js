@@ -1,43 +1,39 @@
+import { contactDispatcher } from "./contactDispatcher";
+
+
+
 const getState = ({ getStore, getActions, setStore }) => {
+	
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			contacts: [],
+			contactList:[]
+			
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			
+			getContacts: async() => {
+				const store = getStore()
+				const {contacts} = await contactDispatcher.get()
+				setStore({...store, contacts})
+				console.log(store.contacts)
+				
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+		
+			createContacts: async(contact) => {
+				const store = getStore()
+				const newContact = await contactDispatcher.post(contact)
+				setStore({...store, contactList: [...store.contactList,newContact]})
+				console.log(store.contactList)
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			deleteContacts: async(id) => {
+				await contactDispatcher.delete(id)
+			},
+			updateContacts: async(id,updatedContacts) => {
+				await contactDispatcher.put(id,updatedContacts)
 			}
+
+			
 		}
 	};
 };
